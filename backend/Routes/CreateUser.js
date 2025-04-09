@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../Models/User");
+const jwtSecret = "SkyIsTheLimit"
 
 router.post(
   "/createuser",
@@ -21,6 +23,15 @@ router.post(
     }
 
     try {
+      // Check if user already exists
+      const existingUser = await User.findOne({ email: req.body.email });
+      if (existingUser) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "User with this email already exists." }] });
+      }
+
+
         // 🔥 Hash the password before saving
       const salt = await bcrypt.genSalt(10); // Generate salt
       const hashedPassword = await bcrypt.hash(req.body.password, salt); // Hash password
@@ -75,7 +86,15 @@ try {
           .json({ errors: [{ msg: "Incorrect password!" }] });
       }
 
-      return res.json({ success: true });
+      const data = {
+        user:{
+          id:userData.id
+        }
+      }
+
+      const authToken = jwt.sign(data, jwtSecret)
+
+      return res.json({ success: true, authToken:authToken });
     } catch (error) {
       console.log(error);
       res.json({ success: false });
