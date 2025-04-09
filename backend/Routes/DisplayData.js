@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.post('/foodData', (req, res))=>{
+router.post('/foodData', (req, res)=>{
 
     try{
         console.log(global.food_items)
@@ -10,6 +10,6 @@ router.post('/foodData', (req, res))=>{
         console.error(error.message);
         res.send("Server Error")
     }
-}
+})
 
 module.exports = router;
