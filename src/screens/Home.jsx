@@ -65,11 +65,11 @@ export default function Home() {
       {/* Card-starts */}
       <div className="container">
       {
-        foodItem.length > 0 ? (
-          foodItem.map((data) => {
+        foodCat.length > 0 ? (
+          foodCat.map((data) => {
             return (
-              <div className='row mb-3'>
-                <div key={data._id} className='fs-3 m-3'>
+              <div key={data._id} className='row mb-3'>
+                <div className='fs-3 m-3'>
                   {data.CategoryName}
                 </div>
                 <hr />
