@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { Badge } from 'react-bootstrap';
+import Modal from '../Modal';
+import Cart from '../screens/Cart';
+import { useCart } from './ContextReducer';
 
 
 export default function Navbar() {
+
+    let data = useCart();
+
+    const [cartView, setCartView] = useState(false);
 
     const navigate = useNavigate();
     
@@ -40,8 +48,12 @@ export default function Navbar() {
                     <Link className="btn bg-white text-success mx-1 fw-bold" to="/signup">SignUp</Link>
                 </div>
                 :<div>
-                    <div className='btn bg-white text-success mx-2'>My Cart</div>
-                    <div className='btn bg-white text-danger mx-2' onClick={handleLogout}>Logout</div>
+                    <div className='btn bg-white text-success mx-2 fw-bold' onClick={()=>{setCartView(true)}}>
+                        My Cart {" "}
+                        <Badge pill bg='danger'>{data.length}</Badge>
+                    </div>
+                    {cartView ? <Modal onClose={()=> setCartView(false)}><Cart></Cart></Modal>:null}
+                    <div className='btn bg-white text-danger mx-2 fw-bold' onClick={handleLogout}>Logout</div>
                 </div>}
 
                 </div>

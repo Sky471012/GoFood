@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function Signup() {
   const [credentials, setCredentials] = useState({name:"", email:"", password:"", address:""});
+  const navigate = useNavigate();
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -18,8 +19,16 @@ export default function Signup() {
     const json = await response.json();
     console.log(json);
 
-    if(!json.success){
-      alert("Enter valid credentials!")
+    if (!response.ok) {
+      if (json.errors && json.errors.length > 0) {
+        alert(json.errors[0].msg); // Show alert with the backend error message
+      } else {
+        alert("Something went wrong!");
+      }
+    }else{
+      console.log("Signuped");
+      console.log(localStorage.setItem("authToken", json.authToken));
+      navigate("/")
     }
 
   }

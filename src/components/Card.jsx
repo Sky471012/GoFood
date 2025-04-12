@@ -1,18 +1,62 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
+import { useDispatchCart, useCart } from "./ContextReducer";
 
 export default function Card(props) {
+  let dispatch = useDispatchCart();
+  let data = useCart()
   let options = props.options;
   let priceOptions = Object.keys(options ? options[0] : {});
+  let foodItems = props.foodItems;
+  
+  const priceRef = useRef();
+  const [qty, setQty] =useState(1);
+  const [size, setSize] =useState("");
 
+  const handleAddToCart = async () => {
+    // Check if this food item already exists in cart
+    let foodIndex = -1;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id === foodItems._id && data[i].size === size) {
+        foodIndex = i;
+        break;
+      }
+    }
+  
+    // If item exists with same size, update quantity
+    if (foodIndex !== -1) {
+      await dispatch({ 
+        type: "UPDATE", 
+        id: foodItems._id, 
+        price: finalPrice, 
+        qty: qty
+      });
+    } else {
+      // Item doesn't exist in cart or has different size, add as new
+      await dispatch({
+        type: "ADD", 
+        id: foodItems._id, 
+        name: foodItems.name, 
+        price: finalPrice, 
+        qty: qty, 
+        size: size,
+        img: foodItems.img
+      });
+    }
+  }
+
+  let finalPrice = qty*parseInt(options[0][size]);
+  useEffect(()=>{
+    setSize(priceRef.current.value)
+  }, [])
 
   return (
-    <div className="card m-3" style={{ width: "18rem" }}>
-      <img src={props.imgSrc} className="card-img-top" style={{height:"250px", objectFit: "cover"}} alt="..." />
+    <div className="card m-3 custom-hover-shadow" style={{ width: "18rem" }}>
+      <img src={foodItems.img} className="card-img-top" style={{height:"250px", objectFit: "cover"}} alt="..." />
       <div className="card-body">
-        <h5 className="card-title">{props.foodName}</h5>
-        <p className="card-text">{props.foodDesc}</p>
+        <div className="d-flex justify-content-center"><h5 className="card-title fs-4 fw-bold text-white fst-italic">{props.foodItems.name}</h5></div>
+        <p className="card-text">{foodItems.description}</p>
         <div className="container w=100">
-          <select className="m-2 h-100 bg-success rounded">
+          <select className="m-2 h-100 bg-success rounded" onChange={(e)=> setQty(e.target.value)}>
             {Array.from(Array(6), (e, i) => {
               return (
                 <option key={i + 1} value={i + 1}> {i + 1} </option>
@@ -20,14 +64,18 @@ export default function Card(props) {
             })}
           </select>
 
-          <select className="m-2 h-100 bg-success rounded">
+          <select className="m-2 h-100 bg-success rounded" ref={priceRef} onChange={(e)=> setSize(e.target.value)}>
             {priceOptions.map((data)=>{
               return <option key={data} value={data}>{data}</option>
             })}
           </select>
 
-          <div className="d-inline h-100 fs-5">Total Price</div>
+          <div className="d-inline h-100 fs-5">₹{finalPrice}/-</div>
         </div>
+
+        <hr />
+        <div className="d-flex justify-content-center"><button className="btn bg-success mx-1 fw-bold text-white" onClick={handleAddToCart}>Add To cart</button></div>
+        
       </div>
     </div>
   );
