@@ -14,5 +14,13 @@ body {
 
 #carouselExampleFade img{
   max-height: 470px;
-  
+}
+
+.custom-hover-shadow {
+  transition: border 0.3s ease;
+}
+
+.custom-hover-shadow:hover {
+  box-shadow: 0 0 15px rgba(25, 135, 84, 0.6);
+  border: 1px solid rgba(25, 135, 84, 0.6);
 }

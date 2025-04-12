@@ -65,11 +65,11 @@ export default function Home() {
       {/* Card-starts */}
       <div className="container">
       {
-        foodItem.length > 0 ? (
-          foodItem.map((data) => {
+        foodCat.length > 0 ? (
+          foodCat.map((data) => {
             return (
-              <div className='row mb-3'>
-                <div key={data._id} className='fs-3 m-3'>
+              <div key={data._id} className='row mb-3'>
+                <div className='fs-3 m-3'>
                   {data.CategoryName}
                 </div>
                 <hr />
@@ -79,10 +79,8 @@ export default function Home() {
                       .filter((item) => (item.CategoryName === data.CategoryName) && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))) 
                       .map((filterItems) => (
                         <div key={filterItems._id} className='col-12 col-md-6 col-lg-3'>
-                            <Card foodName={filterItems.name} 
+                            <Card foodItems={filterItems} 
                                   options={filterItems.options}
-                                  imgSrc={filterItems.img}
-                                  foodDesc={filterItems.description}
                             />
                         </div>
                       ))

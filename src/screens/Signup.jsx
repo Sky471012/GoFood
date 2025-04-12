@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function Signup() {
   const [credentials, setCredentials] = useState({name:"", email:"", password:"", address:""});
+  const navigate = useNavigate();
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -16,8 +19,16 @@ export default function Signup() {
     const json = await response.json();
     console.log(json);
 
-    if(!json.success){
-      alert("Enter valid credentials!")
+    if (!response.ok) {
+      if (json.errors && json.errors.length > 0) {
+        alert(json.errors[0].msg); // Show alert with the backend error message
+      } else {
+        alert("Something went wrong!");
+      }
+    }else{
+      console.log("Signuped");
+      console.log(localStorage.setItem("authToken", json.authToken));
+      navigate("/")
     }
 
   }
@@ -26,9 +37,10 @@ export default function Signup() {
     setCredentials({...credentials, [event.target.name]:event.target.value})
   }
 
-  return (<>
-    <div className="container">
-      <form onSubmit={handleSubmit}>
+  return (<div className='d-flex flex-column min-vh-100'>
+    <Navbar></Navbar>
+    <div className="container my-5 d-flex justify-content-center">
+      <form onSubmit={handleSubmit} className="w-50">
         <div className="m-3 form-group">
           <label htmlFor="name">Name</label>
           <input type="text" className="form-control" name='name' value={credentials.name} onChange={onChange}/>
@@ -44,10 +56,14 @@ export default function Signup() {
         <div className="m-3 form-group">
           <label htmlFor="address">Address</label>
           <input type="text" className="form-control" name='address' value={credentials.address} onChange={onChange}/>
-        </div>        
-        <button type="submit" className="m-3 btn btn-primary">Signup</button>
-        <Link to="/login" className='m-3 btn btn-danger'>Already a user</Link>
+        </div>   
+
+        <div className='d-flex justify-content-center gap-3'>
+          <button type="submit" className="m-3 btn btn-success fw-bold text-white">Signup</button>
+          <Link to="/login" className='m-3 btn btn-danger fw-bold text-white'>Already a user</Link>
+        </div>     
       </form>
     </div>
-  </>)
+    <Footer className="mt-auto"></Footer>
+  </div>)
 }
