@@ -37,7 +37,6 @@ export default function Home() {
                 <div className="carousel-caption" style={{zIndex:"10"}}>
                     <div className="d-flex justify-content-center">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                            {/* <button className="btn btn-outline-success text-white bg-success" type="submit">Search</button> */}
                     </div>
                 </div>
                 <div className="carousel-item active">
@@ -62,14 +61,14 @@ export default function Home() {
       {/* Carousel-ends */}
 
 
-      {/* Card-starts */}
+      {/* Cards-starts */}
       <div className="container">
       {
         foodCat.length > 0 ? (
           foodCat.map((data) => {
             return (
               <div key={data._id} className='row mb-3'>
-                <div className='fs-3 m-3'>
+                <div className='fs-3 m-3 fw-bold'>
                   {data.CategoryName}
                 </div>
                 <hr />
@@ -99,7 +98,8 @@ export default function Home() {
       
       
       </div>
-      {/* Card-ends */}
+      {/* Cards-ends */}
+
       <Footer/>
     </div>
   )

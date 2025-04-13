@@ -9,10 +9,35 @@ export default function Cart() {
     let data = useCart();
     if(data.length === 0){
         return(
-            <div className="m-5 w-100 text-center fs-3">
+            <div className="m-5 d-flex justify-content-center fs-3">
                 The Cart is empty.
             </div>
         )
+    }
+
+    const handleCheckout = async() => {
+      let userEmail = localStorage.getItem("userEmail");
+
+      if (!userEmail) {
+        alert("User email not found. Please log in again.");
+        return;
+      }
+      
+      let response = await fetch("http://localhost:5000/api/orderData",{
+        method: 'POST',
+        headers: {
+          'content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          order_data:data,
+          email:userEmail,
+          order_date:new Date().toDateString()
+        })
+      }
+      );
+      if(response.status===200){
+        dispatch({type:"DROP"})
+      }
     }
     
     let totalPrice = data.reduce((total, food) => total + food.price, 0)
@@ -45,7 +70,7 @@ export default function Cart() {
           </tbody>
         </table>
         <div><h1 className="fs-2">Total Price: ₹ {totalPrice}/-</h1></div>
-        <div><button className='btn bg-success mt-5 fw-bold'>Check Out</button></div>
+        <div><button className='btn bg-success mt-5 fw-bold' onClick={handleCheckout}>Check Out</button></div>
       </div>
     </div>
   )
