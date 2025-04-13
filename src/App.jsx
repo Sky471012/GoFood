@@ -2,7 +2,6 @@ import './App.css'
 import Home from './screens/Home'
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-import Cart from './screens/Cart';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-dark-5/dist/css/bootstrap-night.min.css";
@@ -12,6 +11,7 @@ import {
   Route,
 } from "react-router-dom";
 import { CartProvider } from "./components/ContextReducer";
+import MyOrder from './screens/MyOrder';
 
 function App() {
 
@@ -23,6 +23,7 @@ function App() {
             <Route exact path='/' element={<Home/>} />
             <Route exact path='/login' element={<Login/>} />
             <Route exact path='/signup' element={<Signup/>} />
+            <Route exact path='/myOrder' element={<MyOrder/>} />
           </Routes>
         </div>
       </Router>

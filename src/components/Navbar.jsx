@@ -24,19 +24,19 @@ export default function Navbar() {
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
             <div className="container-fluid">
-                <Link className="navbar-brand fs-1 fst-italic fw-bold" to="/">GoFood</Link>
+                <span className="navbar-brand fs-2 fst-italic fw-bold" to="/">GoFood</span>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item">
-                    <Link className="nav-link active fs-5 fw-bold" aria-current="page" to="#">Home</Link>
+                    <Link className="nav-link active fs-5 fw-bold" aria-current="page" to="/">Home</Link>
                     </li>
 
                     {(localStorage.getItem("authToken")) ?
                         <li className="nav-item">
-                        <Link className="nav-link fs-5 fw-bold" aria-current="page" to="#">My Orders</Link>
+                        <Link className="nav-link fs-5 fw-bold" aria-current="page" to="/myOrder">My Orders</Link>
                         </li>
                     :""}
 

@@ -50,14 +50,14 @@ export default function Card(props) {
   }, [])
 
   return (
-    <div className="card m-3 custom-hover-shadow" style={{ width: "18rem" }}>
+    <div className="card m-3 custom-hover-shadow" style={{ width: "270px" }}>
       <img src={foodItems.img} className="card-img-top" style={{height:"250px", objectFit: "cover"}} alt="..." />
       <div className="card-body">
-        <div className="d-flex justify-content-center mb-3"><h5 className="card-title fs-4 fw-bold text-white fst-italic">{props.foodItems.name}</h5></div>
+        <div className="d-flex justify-content-center mb-3"><span className="card-title fs-5 fw-bold text-white fst-italic">{props.foodItems.name}</span></div>
         {/* <p className="card-text">{foodItems.description}</p> */}
         <div className="container flex justify-content-center w=100">
           <div className="d-flex align-items-center gap-3">
-            <span className="fs-5 ">Quantity:</span>
+            <span className="fs-6 ">Quantity:</span>
             <select className="m-2 h-100 bg-success rounded fw-bold" onChange={(e)=> setQty(e.target.value)}>
               {Array.from(Array(6), (e, i) => {
                 return (
@@ -68,7 +68,7 @@ export default function Card(props) {
           </div>
 
           <div className="d-flex align-items-center gap-3">
-            <span className="fs-5 ">Size:</span>
+            <span className="fs-6 ">Size:</span>
             <select className="m-2 bg-success rounded fw-bold" ref={priceRef} onChange={(e)=> setSize(e.target.value)}>
               {priceOptions.map((data)=>{
                 return <option key={data} value={data}>{data}</option>
@@ -76,7 +76,7 @@ export default function Card(props) {
             </select>
           </div>
 
-          <div className="d-flex justify-content-center h-100 w-100 fs-5 mt-3">Total Price: <span className=" fw-bold ms-2"> ₹{finalPrice}/- </span></div>
+          <div className="d-flex justify-content-center h-100 w-100 fs-6 mt-3">Total Price: <span className=" fw-bold ms-2"> ₹{finalPrice}/- </span></div>
         </div>
 
         <hr />
