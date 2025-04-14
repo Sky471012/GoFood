@@ -46,7 +46,7 @@ export default function Cart() {
     <div>
       <div className='container m-auto mt-5 table-responsive-sm table-responsive-md'>
         <table className='table table-hover '>
-          <thead className='fs-4'>
+          <thead className='fs-5'>
             <tr>
               <th className='text-success' scope='col ' >#</th>
               <th className='text-success' scope='col' >Name</th>
@@ -69,8 +69,11 @@ export default function Cart() {
             ))}
           </tbody>
         </table>
-        <div><h1 className="fs-2">Total Price: ₹ {totalPrice}/-</h1></div>
-        <div><button className='btn bg-success mt-5 fw-bold' onClick={handleCheckout}>Check Out</button></div>
+        
+        <div className='check-out-div d-flex justify-content-between align-items-center'>
+        <h1 className="fs-2 m-3">Total Price: ₹ {totalPrice}/-</h1>
+        <button className='btn bg-success fw-bold m-3' onClick={handleCheckout}>Check Out</button>
+      </div>
       </div>
     </div>
   )

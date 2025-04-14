@@ -38,48 +38,61 @@ export default function MyOrder() {
             <div className="container">
                 <div className="row">
                 {orderData && orderData.order_data ? (
-                orderData.order_data.slice(0).reverse().map((order, index) => {
-                    const orderDate = order[0]?.Order_date || "Invalid Date";
-                    const items = order.slice(1); // all except the first element
-
-                    return (
-                    <div key={index} className="mb-4">
-                        <h5 className="text-center">{orderDate}</h5>
-                        <hr />
-                        <div className="row">
-                        {items.length > 0 ? (
-                            items.map((item, itemIndex) => (
-                            <div className="col-12 col-md-6 col-lg-3" key={itemIndex}>
-                                <div
-                                className="card mt-3 custom-hover-shadow"
-                                style={{ width: "16rem", maxHeight: "360px" }}
-                                >
-                                <img
-                                    src={item.img}
-                                    className="card-img-top"
-                                    alt={item.name}
-                                    style={{ height: "120px", objectFit: "cover" }}
-                                />
-                                <div className="card-body">
-                                    <div className="d-flex justify-content-center mb-1"><h5 className="card-title fs-5 fw-bold text-white fst-italic">{item.name}</h5></div>
-                                    <div
-                                    className="container flex justify-content-center w=100"
-                                    >
-                                    <span className="d-flex ms-1 h-100 w-100 fs-6">Quntity : <span className='fw-bold ms-1'> {item.qty}</span></span>
-                                    <span className="d-flex ms-1 h-100 w-100 fs-6">Size : <span className='fw-bold ms-1'> {item.size}</span></span>
-                                    <span className="d-flex ms-1 h-100 w-100 fs-6">Total Price : <span className='fw-bold ms-1'> ₹{item.price}/- </span></span>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            ))
-                        ) : (
-                            <div className="text-danger">Invalid item data</div>
-                        )}
-                        </div>
+                    <>
+                    <div className='text-center mb-4'>
+                      <h1>Orders you made till now</h1>
                     </div>
-                    );
-                })
+                    {orderData.order_data.slice(0).reverse().map((order, index) => {
+                      const orderDate = order[0]?.Order_date || "Invalid Date";
+                      const items = order.slice(1); // all except the first element
+        
+                      return (
+                        <div key={index} className="mb-4">
+                          <h5 className="text-center">{orderDate}</h5>
+                          <hr />
+                          <div className="row">
+                            {items.length > 0 ? (
+                              items.map((item, itemIndex) => (
+                                <div className="col-12 col-md-6 col-lg-3" key={itemIndex}>
+                                  <div
+                                    className="card mt-3 custom-hover-shadow"
+                                    style={{ width: "16rem", maxHeight: "360px" }}
+                                  >
+                                    <img
+                                      src={item.img}
+                                      className="card-img-top"
+                                      alt={item.name}
+                                      style={{ height: "120px", objectFit: "cover" }}
+                                    />
+                                    <div className="card-body">
+                                      <div className="d-flex justify-content-center mb-1">
+                                        <h5 className="card-title fs-5 fw-bold text-white fst-italic">
+                                          {item.name}
+                                        </h5>
+                                      </div>
+                                      <div className="container flex justify-content-center w=100">
+                                        <span className="d-flex ms-1 h-100 w-100 fs-6">
+                                          Quntity : <span className='fw-bold ms-1'>{item.qty}</span>
+                                        </span>
+                                        <span className="d-flex ms-1 h-100 w-100 fs-6">
+                                          Size : <span className='fw-bold ms-1'>{item.size}</span>
+                                        </span>
+                                        <span className="d-flex ms-1 h-100 w-100 fs-6">
+                                          Total Price : <span className='fw-bold ms-1'>₹{item.price}/-</span>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="text-danger">Invalid item data</div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
                 ) : (
                 <div className='d-flex align-items-center justify-content-center fw-bold fs-2' style={{height:"425px"}}>No orders till now!</div>
                 )}
