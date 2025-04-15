@@ -23,11 +23,11 @@ export default function Navbar() {
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
-            <div className="container-fluid">
+            <div className="container-fluid ">
+                <div className='d-flex align-items-center gap-1' >
+                <img className="logo" src="/logo.png" alt="logo" />
                 <span className="navbar-brand fs-2 fst-italic fw-bold" to="/">GoFood</span>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                </div>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto">
                     <li className="nav-item">

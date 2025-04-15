@@ -13,6 +13,10 @@ body {
   padding-top: 70px;
 }
 
+.logo{
+  height: 45px;
+}
+
 #carouselExampleFade img{
   max-height: 470px;
 }
