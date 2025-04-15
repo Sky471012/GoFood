@@ -71,9 +71,9 @@ export default function Cart() {
         </table>
         
         <div className='check-out-div d-flex justify-content-between align-items-center'>
-        <h1 className="fs-2 m-3">Total Price: ₹ {totalPrice}/-</h1>
-        <button className='btn bg-success fw-bold m-3' onClick={handleCheckout}>Check Out</button>
-      </div>
+          <h1 className="fs-2 m-3">Total Price: ₹ {totalPrice}/-</h1>
+          <button className='btn bg-success fw-bold m-3' onClick={handleCheckout}>Check Out</button>
+        </div>
       </div>
     </div>
   )
