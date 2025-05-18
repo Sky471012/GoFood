@@ -23,7 +23,7 @@ export default function Cart() {
         return;
       }
       
-      let response = await fetch("http://localhost:5000/api/orderData",{
+      let response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/orderData`,{
         method: 'POST',
         headers: {
           'content-Type':'application/json'
